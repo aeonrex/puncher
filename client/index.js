@@ -7,9 +7,14 @@ var client = new net.Socket();
 
 client.setKeepAlive(true);
 
+client.on('data', function (data) {
+  console.log(data.toString());
+});
+
+
 client.connect({
   port: 80,//13337,
-  host: 'https://puncher.herokuapp.com'//'127.0.0.1'
+  host: 'puncher.herokuapp.com'//'127.0.0.1'
 }, function () {
   console.log('Connected to server.');
   console.log(client.address());

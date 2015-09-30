@@ -12,6 +12,10 @@ var server = net.createServer(function (sock) {
     log('Disconnecting from ' + sock.remoteAddress + ':' + sock.remotePort);
   });
 
+  sock.on('data', function (data) {
+    log(sock.remoteAddress + ':' + sock.remotePort + ' says: ' + data.toString());
+  });
+
 });
 
 log(port);

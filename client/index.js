@@ -8,8 +8,8 @@ var client = new net.Socket();
 client.setKeepAlive(true);
 
 client.connect({
-  port: 13337,
-  host: '127.0.0.1'
+  port: 80,//13337,
+  host: 'https://puncher.herokuapp.com'//'127.0.0.1'
 }, function () {
   console.log('Connected to server.');
   console.log(client.address());
@@ -19,6 +19,7 @@ client.connect({
       return console.log(err);
     }
     console.log('aw yiss');
+    client.write('Come on and connect');
   });
 });
 

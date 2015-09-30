@@ -2,6 +2,7 @@
 
 var net = require('net');
 var log = require('util').log;
+var port = process.env.PORT || 13337;
 
 var server = net.createServer(function (sock) {
   //let address = conn.address();
@@ -13,4 +14,6 @@ var server = net.createServer(function (sock) {
 
 });
 
-server.listen(process.env.PORT || 13337);
+log(port);
+
+server.listen(port);

@@ -8,5 +8,8 @@
     "start": "node server/server.js"
   },
   "author": "t4y",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }

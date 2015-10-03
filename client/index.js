@@ -2,6 +2,8 @@
 
 var net = require('net');
 var http = require('./http');
+var host = process.env.HOST || '127.0.0.1';
+var port = process.env.PORT || 13337;
 
 var client = new net.Socket();
 
@@ -13,8 +15,8 @@ client.on('data', function (data) {
 
 
 client.connect({
-  port: 80,//13337,
-  host: 'puncher.herokuapp.com'//'127.0.0.1'
+  port: port,
+  host: host
 }, function () {
   console.log('Connected to server.');
   console.log(client.address());
@@ -27,4 +29,3 @@ client.connect({
     client.write('Come on and connect');
   });
 });
-

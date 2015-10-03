@@ -13,5 +13,9 @@ module.exports.bootstrap = function (options, cb) {
   if (!port) {
     return cb(new Error('Invalid port exception.'));
   }
-  app.listen(port, cb);
+  try {
+    app.listen(port, cb);
+  } catch (e) {
+    cb(e);
+  }
 };

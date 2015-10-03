@@ -21,15 +21,12 @@ client.connect({
   console.log('Connected to server.');
   console.log(client.address());
   var address = client.address();
-  try {
-    http.bootstrap(address, function connected(err) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log('aw yiss');
-      client.write('Come on and connect');
-    });
-  } catch (e) {
-    console.log('couldn\'t connect.')
-  }
+
+  http.bootstrap(address, function connected(err) {
+    if (err) {
+      return console.log(err);
+    }
+    console.log('aw yiss');
+    client.write('Come on and connect');
+  });
 });

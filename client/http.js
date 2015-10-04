@@ -2,6 +2,7 @@
 var log = require('util').log;
 var express = require('express');
 var http = require('http');
+var net = require('net');
 var httpChoice = process.env.HTTP || 'express';
 
 var _connectWithExpress = function (options, cb) {
@@ -40,6 +41,21 @@ var _connectWithHttp = function (options, cb) {
   cb();
 };
 
+var _basic = function (options, cb) {
+  var server = net.createServer(function (sock) {
+    //let address = conn.address();
+    log('Client-server setup: ' + sock.remoteAddress + ':' + sock.remotePort);
+
+    sock.on('data', function (data) {
+
+    });
+  });
+
+  server.listen(options.port, function () {
+    log('listening on port ' + options.port);
+  });
+};
+
 process.on('uncaughtException', function(err) {
   if(err.errno === 'EADDRINUSE') {
     console.log(err);
@@ -54,10 +70,12 @@ module.exports.bootstrap = function (options, cb) {
   var factory = undefined;
 
   switch (httpChoice.toUpperCase()) {
-
     case 'HTTP':
-    factory = _connectWithHttp;
-    break;
+      factory = _connectWithHttp;
+      break;
+    case 'BASIC':
+      factory = _basic;
+      break;
     case 'EXPRESS':
     default:
     factory = _connectWithExpress;

@@ -40,18 +40,28 @@ var _connectWithHttp = function (options, cb) {
   cb();
 };
 
+process.on('uncaughtException', function(err) {
+  if(err.errno === 'EADDRINUSE') {
+    console.log(err);
+  }
+  else  {
+    console.log(err);
+    process.exit(1);
+  }
+});
+
 module.exports.bootstrap = function (options, cb) {
   var factory = undefined;
 
   switch (httpChoice.toUpperCase()) {
 
     case 'HTTP':
-      factory = _connectWithHttp;
-      break;
+    factory = _connectWithHttp;
+    break;
     case 'EXPRESS':
     default:
-      factory = _connectWithExpress;
-      break;
+    factory = _connectWithExpress;
+    break;
   }
   factory(options, cb);
 };

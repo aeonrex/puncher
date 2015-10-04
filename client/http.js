@@ -23,7 +23,7 @@ var _connectWithExpress = function (options, cb) {
     return cb(new Error('Invalid port exception.'));
   }
   try {
-    app.listen(port, '0.0.0.0', cb);
+    app.listen(port, '127.0.0.1', cb);
   } catch (e) {
     cb(e);
   }
@@ -36,7 +36,7 @@ var _connectWithHttp = function (options, cb) {
     response.end("FUCK YEAH!\n");
   });
 
-  server.listen(options.port);
+  server.listen(options.port, '127.0.0.1');
 
   cb();
 };
@@ -51,7 +51,7 @@ var _basic = function (options, cb) {
     });
   });
 
-  server.listen(options.port, function () {
+  server.listen(options.port, '127.0.0.1', function () {
     log('listening on port ' + options.port);
   });
 };

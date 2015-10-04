@@ -1,26 +1,57 @@
 "use strict";
 var log = require('util').log;
 var express = require('express');
-var app = express();
+var http = require('http');
+var httpChoice = process.env.HTTP || 'express';
 
-app.get('/', function (req, res) {
-  res.send('FUCK YEAH!');
-});
+var _connectWithExpress = function (options, cb) {
+  var app = express();
 
-app.on('error', function (err) {
+  app.get('/', function (req, res) {
+    res.send('FUCK YEAH!');
+  });
+
+  app.on('error', function (err) {
     log('An error occurred');
     log(err);
-});
+  });
 
-module.exports.bootstrap = function (options, cb) {
   var port = options.port;
 
   if (!port) {
     return cb(new Error('Invalid port exception.'));
   }
   try {
-    app.listen(port, cb);
+    app.listen(port, '0.0.0.0', cb);
   } catch (e) {
     cb(e);
   }
+};
+
+var _connectWithHttp = function (options, cb) {
+
+  var server = http.createServer(function (request, response) {
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.end("FUCK YEAH!\n");
+  });
+
+  server.listen(options.port);
+
+  cb();
+};
+
+module.exports.bootstrap = function (options, cb) {
+  var factory = undefined;
+
+  switch (httpChoice.toUpperCase()) {
+
+    case 'HTTP':
+      factory = _connectWithHttp;
+      break;
+    case 'EXPRESS':
+    default:
+      factory = _connectWithExpress;
+      break;
+  }
+  factory(options, cb);
 };

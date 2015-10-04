@@ -30,3 +30,19 @@ client.connect({
     client.write('Come on and connect');
   });
 });
+// var address = client.address();
+// console.log(address);
+//
+// http.bootstrap(address, function connected(err) {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   console.log('Http server started. Rendevous in progress.');
+//
+//   client.connect({
+//     port: port,
+//     host: host
+//   }, function () {
+//     console.log('Connected to server');
+//   });
+// });

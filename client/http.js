@@ -4,6 +4,7 @@ var express = require('express');
 var http = require('http');
 var net = require('net');
 var httpChoice = process.env.HTTP || 'express';
+var wildCard = '::' || '0.0.0.0';
 
 var _connectWithExpress = function (options, cb) {
   var app = express();
@@ -23,7 +24,10 @@ var _connectWithExpress = function (options, cb) {
     return cb(new Error('Invalid port exception.'));
   }
   try {
-    app.listen(port, '127.0.0.1', cb);
+    var server = app.listen(port, '::',function () {
+      console.log(server.address().address);
+      cb();
+    });
   } catch (e) {
     cb(e);
   }

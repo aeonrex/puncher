@@ -4,7 +4,7 @@ var net = require('net');
 var http = require('./http');
 var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || 13337;
-var localAddress = '127.0.0.1';
+var localAddress = '0.0.0.0' || '127.0.0.1';
 
 var client = new net.Socket();
 

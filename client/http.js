@@ -18,13 +18,14 @@ var _connectWithExpress = function (options, cb) {
     log(err);
   });
 
-  var port = options.port;
+  var port = options.port
+  var addr = options.address;
 
   if (!port) {
     return cb(new Error('Invalid port exception.'));
   }
   try {
-    var server = app.listen(port, '::',function () {
+    var server = app.listen(port, wildCard, function () {
       console.log(server.address().address);
       cb();
     });

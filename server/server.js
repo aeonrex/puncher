@@ -8,7 +8,11 @@ var server = net.createServer(function (sock) {
   //let address = conn.address();
   log('CONNECTED: ' + sock.remoteAddress + ':' + sock.remotePort);
 
+  log(sock.address());
+  log(server.address());
+
   sock.write(sock.remoteAddress + ':' + sock.remotePort);
+
 
   sock.on('close', function () {
     log('Disconnecting from ' + sock.remoteAddress + ':' + sock.remotePort);
@@ -26,4 +30,4 @@ var server = net.createServer(function (sock) {
 
 log(port);
 
-server.listen(port);
+server.listen(port, '0.0.0.0');

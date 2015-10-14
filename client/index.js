@@ -18,7 +18,7 @@ client.on('data', function (data) {
 client.connect({
   port: port,
   host: host,
-  localAddress: localAddress, // 127.0.0.1 for mac, linux likes 0.0.0.0 - need to try 'localhost'
+//  localAddress: localAddress, // 127.0.0.1 for mac, linux likes 0.0.0.0 - need to try 'localhost'
 
 }, function () {
   console.log('Connected to server.');

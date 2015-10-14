@@ -41,7 +41,7 @@ var _connectWithHttp = function (options, cb) {
     response.end("FUCK YEAH!\n");
   });
 
-  server.listen(options.port, '127.0.0.1');
+  server.listen(options.port, wildCard);
 
   cb();
 };
@@ -52,11 +52,11 @@ var _basic = function (options, cb) {
     log('Client-server setup: ' + sock.remoteAddress + ':' + sock.remotePort);
 
     sock.on('data', function (data) {
-
+        console.log(data.toString());
     });
   });
 
-  server.listen(options.port, '127.0.0.1', function () {
+  server.listen(options.port, wildCard, function () {
     log('listening on port ' + options.port);
   });
 };

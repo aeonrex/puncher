@@ -75,12 +75,13 @@ client.on('listening', function () {
     send({address: host, port: port}, {type: 'register', name: clientName, linfo: linfo});
     setInterval(function () {
       send({address: host, port: port}, {type: 'register', name: clientName, linfo: linfo});
-    }, 20000);
+    }, 2000);
   });
 });
 
 client.on('message', function (data, rinfo) {
   console.log('Message from %s:%s', rinfo.address, rinfo.port);
+  console.log(data.toString());
 });
 
 client.bind();

@@ -178,6 +178,14 @@ udp_in.on('message', function(data, rinfo) {
       from: clientName,
       msg: 'Hello World, '+remoteName+'!'
     });
+
+    setInterval(function () {
+      send(client.connection, {
+        type: 'message',
+        from: clientName,
+        msg: 'keep alive.'
+      });
+    }, 20000);
   } else if (data.type == 'message') {
     console.log('> %s [from %s@%s:%s]', data.msg, data.from, rinfo.address, rinfo.port)
   }

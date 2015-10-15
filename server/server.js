@@ -35,6 +35,7 @@ var port = process.env.PORT || 13337;
 
 var udp = require('dgram');
 var server = udp.createSocket('udp4');
+var clients = {};
 
 server.on('listening', function () {
   var address = server.address();
@@ -47,12 +48,16 @@ server.on('message', function (data, rinfo) {
  } catch (e) {
    return console.log('! Couldn\'t parse data (%s):\n%s', e, data);
  }
+
+ if (!clients[rinfo.address+':'+rinfo.port]) {
+   clients[rinfo.address+':'+rinfo.port] = true;
   console.log('# Client registered: %s@[%s:%s | %s:%s]', data.name,
                 rinfo.address, rinfo.port, data.linfo.address, data.linfo.port);
   send(rinfo.address, rinfo.port, {
     client: rinfo.address,
     port: rinfo.port
   });
+}
 });
 
 var send = function(host, port, msg, cb) {

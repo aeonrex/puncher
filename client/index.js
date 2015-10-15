@@ -82,9 +82,10 @@ client.on('listening', function () {
 client.on('message', function (data, rinfo) {
   console.log('Message from %s:%s', rinfo.address, rinfo.port);
   console.log(data.toString());
-  send(rinfo.address, rinfo.port, {
-    msg: 'ping'
-  });
+  // send(rinfo.address, rinfo.port, {
+  //   type: 'client',
+  //   msg: 'ping'
+  // });
 });
 
 client.bind();

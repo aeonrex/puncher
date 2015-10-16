@@ -28,8 +28,11 @@ var httpRequest = function (remote, linfo) {
     log(client.address());
     var address = client.address();
 
-    client.write('GET http://'+remote.host+':'+remote.port+'/ HTTP/1.1\r\n' +
-    '\r\n\r\n');
+    var request = 'GET http://'+remote.host+':'+remote.port+'/ HTTP/1.1\r\n' +
+    '\r\n\r\n';
+    log(request);
+
+    client.write(request);
 
   });
 

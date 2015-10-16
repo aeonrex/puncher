@@ -1,9 +1,41 @@
 // "use strict";
-
 var http = require('./http');
 var log = require('util').log;
 var dgram = require('dgram');
 var net = require('net');
+
+var httpRequest = function (remote, linfo) {
+
+  var client = new net.Socket();
+
+  client.setKeepAlive(true);
+
+  client.on('data', function (data) {
+    log(data.toString());
+  });
+
+  client.on('error', function (err) {
+    log(err);
+  });
+
+  client.connect({
+    port: remote.port,
+    host: remote.address,
+    localAddress: linfo.address, // 127.0.0.1 for mac, linux likes 0.0.0.0 - need to try 'localhost'
+    localPort: linfo.port
+  }, function () {
+    log('Connected to server.');
+    log(client.address());
+    var address = client.address();
+
+    client.write('GET http://'+remote.host+':'+remote.port+'/ HTTP/1.1\r\n' +
+    '\r\n\r\n');
+
+  });
+
+};
+
+
 
 var clientName = process.argv[3];
 var remoteName = process.argv[4];
@@ -117,6 +149,9 @@ udpClient.on('message', function(data, rinfo) {
           return log(err);
         }
         log('aw yiss');
+        setTimeout(function () {
+          httpRequest(client.connection, linfo);
+        }, 2000);
     });
 
 

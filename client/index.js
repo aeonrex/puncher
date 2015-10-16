@@ -28,7 +28,7 @@ var httpRequest = function (remote, linfo) {
     log(client.address());
     var address = client.address();
 
-    var request = 'GET http://'+remote.host+':'+remote.port+'/ HTTP/1.1\r\n' +
+    var request = 'GET http://'+remote.address+':'+remote.port+'/ HTTP/1.1\r\n' +
     '\r\n\r\n';
     log(request);
 

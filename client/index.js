@@ -18,6 +18,9 @@ var httpRequest = function (remote, linfo) {
     log(err);
   });
 
+  log('remote');
+  log(remote);
+
   client.connect({
     port: remote.port,
     host: remote.address,
